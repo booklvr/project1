@@ -1,0 +1,34 @@
+
+
+{% extends "layout.html" %}
+
+{% block title %}
+    Result
+{% endblock %}
+
+
+{% block main %}
+  <h4>Result</h4>
+
+  <div class="container">
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Year</th>
+        <th>ISBN</th>
+      </tr>
+      {% for book in books %}
+        <tr>
+          <td><a href="{{ url_for('book', isbn=book.isbn) }}">{{ book.title }}</a></td>
+          <td>{{ book.author }}</td>
+          <td>{{ book.year }}</td>
+          <td>{{ book.isbn }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+{% endblock %}
+
+

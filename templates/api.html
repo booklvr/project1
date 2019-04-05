@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Api
+{% endblock %}
+
+{% block main %}
+  <ul>
+    {% for key in data %}
+      <li> {{ key }}: {{ data[key] }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

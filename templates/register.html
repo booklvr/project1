@@ -1,0 +1,128 @@
+<link href="/static/styles.css" rel="stylesheet">
+
+
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+
+<script>
+    $('document').ready(function(){
+        //check username isn't blank
+        var username_state = false;
+        var username_taken = null;
+        $('#username').on('blur', function(e){
+            var username = $('#username').val();
+            if (username == '') {
+                username_state = false;
+                $('#username').parent().removeClass();
+                $('#username').parent().addClass("form_error");
+                $('#username').siblings("span").text('enter username');
+            } else if (username.length > 0) {
+                username_state = true;
+                $('#username').parent().removeClass();
+                $('#username').parent().addClass("form_success");
+                $('#username').siblings("span").text('');
+            }
+            if (username_state == true) {
+                $.get('/check?username=' + username, function(response) {
+                if (response == false) {
+                    username_state = false;
+                    username_taken = true;
+                    $('#username').parent().removeClass();
+                    $('#username').parent().addClass("form_error");
+                    $('#username').siblings("span").text('username taken')
+                    $("#username").focus();
+                } else if (response == true) {
+                    username_state = true;
+                    username_taken = false;
+                    $("#username").siblings("span").text('username free');
+                }
+            });
+            }
+        });
+        //varify password field isn't empty
+        var password_state = false;
+        $('#password').on('blur', function(e){
+            var password = $('#password').val();
+            if (password == '') {
+                password_state = false;
+                $('#password').parent().removeClass();
+                $('#password').parent().addClass("form_error");
+                $('#password').siblings("span").text('enter password');
+            } else if (password.length > 0) {
+                password_state = true;
+                $('#password').parent().removeClass();
+                $('#password').parent().addClass("form_success");
+                $('#password').siblings("span").text('');
+            }
+        });
+        //verify confirmation field isn't empty
+        var confirmation_state = false;
+        $('#confirmation').on('blur', function(e){
+            var password = $('#password').val();
+            var confirmation = $('#confirmation').val();
+            if (confirmation == '') {
+                confirmation_state = false;
+                $('#confirmation').parent().removeClass();
+                $('#confirmation').parent().addClass("form_error");
+                $('#confirmation').siblings("span").text('enter confirmation');
+
+            //if passwords don't
+            } else if (confirmation != password) {
+                confirmation_state = false;
+                $('#confirmation').parent().removeClass();
+                $('#confirmation').parent().addClass("form_error");
+                $('#confirmation').siblings("span").text("passwords don't match");
+                $("#password").parent().removeClass();
+                $("#password").parent().addClass("form_error");
+                $("#password").focus();
+
+            // if passwords match
+            } else if (confirmation == password) {
+                confirmation_state = true;
+                $('#confirmation').parent().removeClass();
+                $('#confirmation').parent().addClass("form_success");
+                $('#confirmation').siblings("span").text('passwords match');
+            }
+        });
+
+        $('form').on('submit', function(e){
+            e.preventDefault();
+            if (username_state == false || password_state == false || confirmation_state == false || username_taken == true) {
+                $("#error_msg").text("Fix the errors in the form first");
+            } else {
+                (document).getElementById('register-form').submit();
+            }
+        });
+    });
+
+</script>
+    <form id="register-form" action="/register" method="post">
+        <h4>Register</h4>
+        <!--username-->
+        <div id="error_msg"></div>
+        <div class="form-group">
+            <input id="username" autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text"></br>
+            <span></span>
+        </div>
+
+        <!--password-->
+        <div class="form-group">
+            <!--<label for="password">Password</label>-->
+            <input class="form-control" id="password" name="password" placeholder="Password" type="password"></br>
+            <span></span>
+        </div>
+
+        <!--confirmation-->
+        <div class="form-group">
+            <input class="form-control" id="confirmation" name="confirmation" placeholder="Confirm Password" type="password"></br>
+            <span></span>
+        </div>
+        <button class="btn btn-primary" name="register" id="reg_btn" type="submit">Register</button>
+
+    </form>
+{% endblock %}

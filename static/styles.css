@@ -1,0 +1,93 @@
+main .form-control {
+  /* center form controls */
+  display: inline-block;
+  /* override Bootstrap's 100% width for form controls */
+  width: auto;
+}
+
+main {
+  /* scroll horizontally as needed */
+  overflow-x: auto;
+  /* center contents */
+  text-align: center;
+}
+
+#register_form h1 {
+  text-align: center;
+}
+
+#register_form {
+  width: 37%;
+  margin: 100px auto;
+  padding-bottom: 30px;
+  border: 1px solid #918274;
+  border-radius: 5px;
+  background: white;
+}
+
+#register_form input {
+  width: 80%;
+  height: 35px;
+  margin: 5px 10%;
+  font-size: 1.1em;
+  padding: 4px;
+  font-size: 0.9em;
+}
+
+/*Styling for errors on form*/
+.form_error span {
+  width: 80%;
+  height: 35px;
+  margin: 3px 10%;
+  font-size: 1.1em;
+  color: #D83D5A;
+}
+
+.form_error input {
+  border: 1px solid #D83D5A;
+}
+
+/*Styling in case no errors on form*/
+.form_success span {
+  width: 80%;
+  height: 35px;
+  margin: 3px 10%;
+  font-size: 1.1em;
+  color: green;
+}
+
+.form_success input {
+  border: 1px solid green;
+}
+
+#error_msg {
+  color: red;
+  text-align: center;
+  margin: 10px auto;
+}
+
+#error {
+  color: white;
+  background-color: red;
+}
+
+table {
+  border-collapse: collapse;
+  text-align: left;
+  margin: auto;
+}
+
+table, th, td {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+ul {
+  list-style: none;
+}
+
+.radio {
+  display: inline-block;
+}
+
+/*# sourceMappingURL=styles.css.map */
